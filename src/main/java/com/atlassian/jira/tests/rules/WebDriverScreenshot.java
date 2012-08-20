@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.jira.tests;
+package com.atlassian.jira.tests.rules;
 
 import com.atlassian.jira.functest.framework.WebTestDescription;
 import com.atlassian.jira.functest.framework.suite.JUnit4WebTestDescription;

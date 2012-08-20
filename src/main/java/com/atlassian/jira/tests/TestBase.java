@@ -17,11 +17,19 @@ package com.atlassian.jira.tests;
 
 import com.atlassian.jira.functest.framework.backdoor.Backdoor;
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
+import com.atlassian.jira.tests.rules.CleanAllCookies;
+import com.atlassian.jira.tests.rules.MaximizeWindow;
+import com.atlassian.jira.tests.rules.WebDriverScreenshot;
 import com.atlassian.pageobjects.PageBinder;
 import org.junit.ClassRule;
 import org.junit.Rule;
 
 public abstract class TestBase {
+	@Rule
+	public CleanAllCookies cleanCookies = new CleanAllCookies(jira());
+
+	@Rule
+	public MaximizeWindow maximizeWindow = new MaximizeWindow(jira());
 
 	@Rule
 	public WebDriverScreenshot $screenshot = new WebDriverScreenshot(jira());
