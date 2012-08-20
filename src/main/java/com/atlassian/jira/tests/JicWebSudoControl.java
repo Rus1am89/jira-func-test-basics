@@ -13,7 +13,7 @@ import static java.lang.String.format;
  */
 public class JicWebSudoControl {
 
-	private static final String WEBSUDO_URL_TEMPLATE = "rest/func-test/1.0/websudo?enabled=%s";
+	private static final String WEBSUDO_URL_TEMPLATE = "rest/func-test-helper/1.0/websudo?enabled=%s";
 	private static final String WEBSUDO_URL_DISABLE = format(WEBSUDO_URL_TEMPLATE, "false");
 
 	private final WebTester webTester;
