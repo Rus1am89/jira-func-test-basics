@@ -1,8 +1,11 @@
 package com.atlassian.jira.tests.rules;
 
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
+import com.atlassian.webdriver.AtlassianWebDriver;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 
 import javax.inject.Inject;
 
@@ -19,10 +22,11 @@ public class MaximizeWindow extends TestWatcher {
 	protected void starting(Description description) {
 		super.starting(description);
 
-		jira.getTester().getDriver().executeScript(
-				"if (window.screen){"
-						+ "window.moveTo(0, 0);"
-						+ "window.resizeTo(window.screen.availWidth,window.screen.availHeight);"
-						+ "};");
+		final AtlassianWebDriver driver = jira.getTester().getDriver();
+
+		driver.manage().window().setPosition(new Point(0,0));
+		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dim = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
+		driver.manage().window().setSize(dim);
 	}
 }
