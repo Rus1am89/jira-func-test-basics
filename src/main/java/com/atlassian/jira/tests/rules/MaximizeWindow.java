@@ -22,8 +22,10 @@ public class MaximizeWindow extends TestWatcher {
 	protected void starting(Description description) {
 		super.starting(description);
 
-		final AtlassianWebDriver driver = jira.getTester().getDriver();
+		maximize(jira.getTester().getDriver());
+	}
 
+	public static void maximize(AtlassianWebDriver driver) {
 		driver.manage().window().setPosition(new Point(0,0));
 		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension dim = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
