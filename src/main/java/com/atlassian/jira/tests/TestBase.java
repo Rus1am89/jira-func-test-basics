@@ -18,6 +18,7 @@ package com.atlassian.jira.tests;
 import com.atlassian.jira.functest.framework.backdoor.Backdoor;
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
 import com.atlassian.jira.tests.rules.CleanAllCookies;
+import com.atlassian.jira.tests.rules.DirtyWarningTerminatorRule;
 import com.atlassian.jira.tests.rules.MaximizeWindow;
 import com.atlassian.jira.tests.rules.WebDriverScreenshot;
 import com.atlassian.pageobjects.PageBinder;
@@ -33,6 +34,9 @@ public abstract class TestBase {
 
 	@Rule
 	public WebDriverScreenshot $screenshot = new WebDriverScreenshot(jira());
+
+	@Rule
+	public DirtyWarningTerminatorRule dirtyWarning = new DirtyWarningTerminatorRule(jira());
 
 	@ClassRule
 	public static FuncTestHelper funcTestHelper = new FuncTestHelper();
