@@ -21,6 +21,7 @@ import com.atlassian.jira.functest.framework.DefaultFuncTestHttpUnitOptions;
 import com.atlassian.jira.functest.framework.FuncTestHelperFactory;
 import com.atlassian.jira.functest.framework.FuncTestWebClientListener;
 import com.atlassian.jira.functest.framework.Navigation;
+import com.atlassian.jira.functest.framework.assertions.Assertions;
 import com.atlassian.jira.functest.framework.backdoor.Backdoor;
 import com.atlassian.jira.functest.framework.setup.JiraSetupInstanceHelper;
 import com.atlassian.jira.pageobjects.pages.JiraLoginPage;
@@ -36,6 +37,7 @@ public class FuncTestHelper extends ExternalResource {
 	public final WebTester webTester;
 	public final Navigation navigation;
 	public final Backdoor backdoor;
+	public final Assertions assertions;
 
 	public FuncTestHelper() {
 		DefaultFuncTestHttpUnitOptions.setDefaultOptions();
@@ -46,6 +48,7 @@ public class FuncTestHelper extends ExternalResource {
 		administration = factory.getAdministration();
 		navigation = factory.getNavigation();
 		backdoor = factory.getBackdoor();
+		assertions = factory.getAssertions();
 
 		new JiraSetupInstanceHelper(webTester, environmentData).ensureJIRAIsReadyToGo(new FuncTestWebClientListener());
 		new JicWebSudoControl(backdoor, webTester).disable();
