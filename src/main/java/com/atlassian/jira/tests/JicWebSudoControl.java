@@ -1,6 +1,6 @@
 package com.atlassian.jira.tests;
 
-import com.atlassian.jira.functest.framework.backdoor.Backdoor;
+import com.atlassian.jira.tests.backdoor.Backdoor;
 import net.sourceforge.jwebunit.WebTester;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;

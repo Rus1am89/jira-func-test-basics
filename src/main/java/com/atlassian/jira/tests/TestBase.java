@@ -15,7 +15,7 @@
  */
 package com.atlassian.jira.tests;
 
-import com.atlassian.jira.functest.framework.backdoor.Backdoor;
+import com.atlassian.jira.tests.backdoor.Backdoor;
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
 import com.atlassian.jira.tests.rules.CleanAllCookies;
 import com.atlassian.jira.tests.rules.DirtyWarningTerminatorRule;
