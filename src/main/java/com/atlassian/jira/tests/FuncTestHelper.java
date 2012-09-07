@@ -25,7 +25,7 @@ import com.atlassian.jira.functest.framework.assertions.Assertions;
 import com.atlassian.jira.functest.framework.setup.JiraSetupInstanceHelper;
 import com.atlassian.jira.pageobjects.pages.JiraLoginPage;
 import com.atlassian.jira.testkit.client.Backdoor;
-import com.atlassian.jira.testkit.client.util.BackdoorTestEnvironmentData;
+import com.atlassian.jira.testkit.client.util.TestKitLocalEnvironmentData;
 import com.atlassian.jira.webtests.WebTesterFactory;
 import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
 import net.sourceforge.jwebunit.WebTester;
@@ -48,7 +48,7 @@ public class FuncTestHelper extends ExternalResource {
 		factory = new FuncTestHelperFactory(webTester, environmentData);
 		administration = factory.getAdministration();
 		navigation = factory.getNavigation();
-		backdoor = new Backdoor(new BackdoorTestEnvironmentData());
+		backdoor = new Backdoor(new TestKitLocalEnvironmentData());
 		assertions = factory.getAssertions();
 
 		new JiraSetupInstanceHelper(webTester, environmentData).ensureJIRAIsReadyToGo(new FuncTestWebClientListener());
