@@ -94,9 +94,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.atlassian.jira.tests</groupId>
-			<artifactId>jira-func-test-helper-client</artifactId>
-			<version>${ftc.version}</version>
-			<scope>provided</scope>
+			<artifactId>jira-testkit-client</artifactId>
+			<version>${testkit.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.atlassian.jira</groupId>
@@ -114,6 +113,6 @@
 
 	<properties>
 		<jira.version>5.2-m02</jira.version>
-		<ftc.version>1.9</ftc.version>
+		<testkit.version>5.0-m03</testkit.version>
 	</properties>
 </project>
