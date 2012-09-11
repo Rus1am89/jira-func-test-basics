@@ -40,12 +40,45 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>com.atlassian.maven.plugins</groupId>
+						<artifactId>maven-jira-plugin</artifactId>
+						<version>3.11</version>
+						<configuration>
+							<productVersion>${jira.version}</productVersion>
+							<productDataVersion>${jira.data.version}</productDataVersion>
+						</configuration>
+						<executions>
+							<execution>
+								<id>integration-test</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>integration-test</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>releaseProfile</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
 		</profile>
 	</profiles>
 
 	<build>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/xml</directory>
+				<targetPath>xml</targetPath>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -59,6 +92,51 @@
 					<source>1.6</source>
 					<target>1.6</target>
 					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.4.3</version>
+				<configuration>
+					<includes>
+						<include>**/*Test.java</include>
+					</includes>
+					<excludes>
+						<exclude>it/**</exclude>
+					</excludes>
+					<forkMode>once</forkMode>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<preparationGoals>clean test</preparationGoals>
+					<releaseProfiles>releaseProfile</releaseProfiles>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>unit-test-compile</id>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<source>${jdkLevel}</source>
+					<target>${jdkLevel}</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -107,12 +185,14 @@
 			<groupId>rhino</groupId>
 			<artifactId>js</artifactId>
 			<version>1.7R2</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
 	<properties>
 		<jira.version>5.2-m02</jira.version>
+		<jira.data.version>${jira.version}</jira.data.version>
 		<testkit.version>5.0-m03</testkit.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdkLevel>1.6</jdkLevel>
 	</properties>
 </project>
