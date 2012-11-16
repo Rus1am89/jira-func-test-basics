@@ -1,12 +1,15 @@
 package com.atlassian.jira.tests.rules;
 
-import com.atlassian.jira.functest.framework.Administration;
+import com.atlassian.jira.pageobjects.JiraTestedProduct;
+import com.atlassian.jira.rest.client.NullProgressMonitor;
+import com.atlassian.jira.rest.client.internal.jersey.JerseyJiraRestClientFactory;
 import com.atlassian.jira.tests.annotations.JiraBuildNumberDependent;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+import com.atlassian.jira.rest.client.auth.AnonymousAuthenticationHandler;
 
-import javax.inject.Inject;
+import java.net.URI;
 
 /**
  *
@@ -14,12 +17,14 @@ import javax.inject.Inject;
  */
 public class JiraBuildNumberRule implements TestRule {
 
-	private final Administration jira;
+	private final String baseUrl;
 
-	@Inject
-	public JiraBuildNumberRule(Administration jira)
-	{
-		this.jira = jira;
+	public JiraBuildNumberRule(JiraTestedProduct jira) {
+		this(jira.getProductInstance().getBaseUrl());
+	}
+
+	public JiraBuildNumberRule(String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
 
 	@Override
@@ -27,7 +32,7 @@ public class JiraBuildNumberRule implements TestRule {
 		JiraBuildNumberDependent annotation = description.getAnnotation(JiraBuildNumberDependent.class);
 
 		if (annotation != null) {
-			long actualBuildNumber = jira.getBuildNumber();
+			long actualBuildNumber = getBuildNumber();
 			if(annotation.condition().fulfillsCondition(annotation.value(), actualBuildNumber)) {
 				return base;
 			}
@@ -39,5 +44,9 @@ public class JiraBuildNumberRule implements TestRule {
 				// Return an empty Statement object for those tests
 			}
 		};
+	}
+
+	public long getBuildNumber() {
+		return new JerseyJiraRestClientFactory().create(URI.create(baseUrl), new AnonymousAuthenticationHandler()).getMetadataClient().getServerInfo(new NullProgressMonitor()).getBuildNumber();
 	}
 }
