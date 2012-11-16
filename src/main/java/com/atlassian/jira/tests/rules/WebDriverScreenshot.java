@@ -40,12 +40,8 @@ public class WebDriverScreenshot extends TestWatcher {
 	private final WebDriver driver;
 	private final TestEnvironment testEnvironment = new TestEnvironment();
 
-	public WebDriverScreenshot(WebDriver webDriver) {
-		this.driver = webDriver;
-	}
-
 	public WebDriverScreenshot(AtlassianWebDriver webDriver) {
-		this.driver = webDriver;
+		this.driver = webDriver.getDriver();
 	}
 
 	public WebDriverScreenshot(JiraTestedProduct product) {
@@ -53,7 +49,7 @@ public class WebDriverScreenshot extends TestWatcher {
 	}
 
 	public WebDriverScreenshot() {
-		this.driver = WebDriverBrowserAutoInstall.INSTANCE.getDriver();
+		this(WebDriverBrowserAutoInstall.INSTANCE.getDriver());
 	}
 
 	@Override
