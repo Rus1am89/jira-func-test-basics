@@ -21,12 +21,14 @@ import com.atlassian.jira.functest.framework.suite.JUnit4WebTestDescription;
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
 import com.atlassian.jira.pageobjects.config.TestEnvironment;
 import com.atlassian.webdriver.AtlassianWebDriver;
+import com.atlassian.webdriver.browsers.WebDriverBrowserAutoInstall;
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.StringDescription;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,15 +37,23 @@ import java.io.File;
 public class WebDriverScreenshot extends TestWatcher {
 	private static final Logger logger = LoggerFactory.getLogger(WebDriverScreenshot.class);
 
-	private final AtlassianWebDriver webDriver;
+	private final WebDriver driver;
 	private final TestEnvironment testEnvironment = new TestEnvironment();
 
+	public WebDriverScreenshot(WebDriver webDriver) {
+		this.driver = webDriver;
+	}
+
 	public WebDriverScreenshot(AtlassianWebDriver webDriver) {
-		this.webDriver = webDriver;
+		this.driver = webDriver;
 	}
 
 	public WebDriverScreenshot(JiraTestedProduct product) {
 		this(product.getTester().getDriver());
+	}
+
+	public WebDriverScreenshot() {
+		this.driver = WebDriverBrowserAutoInstall.INSTANCE.getDriver();
 	}
 
 	@Override
@@ -56,7 +66,7 @@ public class WebDriverScreenshot extends TestWatcher {
 		if (!isScreenshotCapable())
 		{
 			logger.warn(new StringDescription().appendText("Unable to take screenshot: WebDriver ")
-					.appendValue(webDriver.getDriver()).appendText(" is not instance of TakesScreenshot").toString());
+					.appendValue(driver).appendText(" is not instance of TakesScreenshot").toString());
 			return;
 		}
 		takeScreenshot(description);
@@ -66,7 +76,7 @@ public class WebDriverScreenshot extends TestWatcher {
 	{
 		try
 		{
-			TakesScreenshot takingScreenshot = (TakesScreenshot) webDriver.getDriver();
+			TakesScreenshot takingScreenshot = (TakesScreenshot) driver;
 			File screenshot = takingScreenshot.getScreenshotAs(OutputType.FILE);
 			File target = new File(testEnvironment.artifactDirectory(), fileName(description));
 			FileUtils.copyFile(screenshot, target);
@@ -86,7 +96,7 @@ public class WebDriverScreenshot extends TestWatcher {
 
 	private boolean isScreenshotCapable()
 	{
-		return webDriver.getDriver() instanceof TakesScreenshot;
+		return driver instanceof TakesScreenshot;
 	}
 }
 

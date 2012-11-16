@@ -2,6 +2,7 @@ package com.atlassian.jira.tests.rules;
 
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
 import com.atlassian.webdriver.AtlassianWebDriver;
+import com.atlassian.webdriver.browsers.WebDriverBrowserAutoInstall;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -11,12 +12,16 @@ import javax.inject.Inject;
 
 public class DirtyWarningTerminatorRule extends TestWatcher implements TestRule
 {
-	private AtlassianWebDriver driver;
+	private final AtlassianWebDriver driver;
 
 	@Inject
 	public DirtyWarningTerminatorRule(JiraTestedProduct jira)
 	{
 		this.driver = jira.getTester().getDriver();
+	}
+
+	public DirtyWarningTerminatorRule() {
+		this.driver = WebDriverBrowserAutoInstall.INSTANCE.getDriver();
 	}
 
 	@Override
@@ -39,7 +44,7 @@ public class DirtyWarningTerminatorRule extends TestWatcher implements TestRule
 	{
 		try
 		{
-			driver.getDriver().switchTo().alert().dismiss();
+			driver.switchTo().alert().dismiss();
 		}
 		catch (NoAlertPresentException iDontReallyCare)
 		{
@@ -49,7 +54,7 @@ public class DirtyWarningTerminatorRule extends TestWatcher implements TestRule
 	private void preventTheEvil()
 	{
 		// get out of any IFrame
-		driver.getDriver().switchTo().defaultContent();
+		driver.switchTo().defaultContent();
 		// just make it WOOOORK
 		driver.executeScript("window.onbeforeunload=null;");
 	}

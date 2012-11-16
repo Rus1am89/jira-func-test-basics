@@ -2,30 +2,33 @@ package com.atlassian.jira.tests.rules;
 
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
 import com.atlassian.webdriver.AtlassianWebDriver;
+import com.atlassian.webdriver.browsers.WebDriverBrowserAutoInstall;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
-
-import javax.inject.Inject;
+import org.openqa.selenium.WebDriver;
 
 public class MaximizeWindow extends TestWatcher {
 
-	private final JiraTestedProduct jira;
+	private final AtlassianWebDriver driver;
 
-	@Inject
 	public MaximizeWindow(JiraTestedProduct jira) {
-		this.jira = jira;
+		this.driver = jira.getTester().getDriver();
+	}
+
+	public MaximizeWindow() {
+		this.driver = WebDriverBrowserAutoInstall.INSTANCE.getDriver();
 	}
 
 	@Override
 	protected void starting(Description description) {
 		super.starting(description);
 
-		maximize(jira.getTester().getDriver());
+		maximize(driver);
 	}
 
-	public static void maximize(AtlassianWebDriver driver) {
+	public static void maximize(WebDriver driver) {
 		driver.manage().window().setPosition(new Point(0,0));
 		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension dim = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
