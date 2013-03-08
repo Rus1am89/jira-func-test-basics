@@ -194,9 +194,9 @@
 	</dependencies>
 
 	<properties>
-		<jira.version>5.2-m02</jira.version>
+		<jira.version>6.0-m08</jira.version>
 		<jira.data.version>${jira.version}</jira.data.version>
-		<testkit.version>5.0-m03</testkit.version>
+		<testkit.version>6.0.14</testkit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdkLevel>1.6</jdkLevel>
 	</properties>
