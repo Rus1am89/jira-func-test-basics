@@ -27,10 +27,13 @@ Edit you pom.xml and add following:
 
 Here's an example of an integration test using three JIRA instances at once. It will execute tests in the browser using Atlassian Selenium.
 
+
 TestedProductFactory comes from JIRA PageObjects, it offers API to drive the browser and access JIRA pages. Beware most of the pages change from version to version.
 So if your product heavily integrates with JIRA you may need to write your own versions. We use it mostly to log in the user during tests, then we use our own PageObjects to test the plugin.
 
-Backdoor is [TestKit backdoor|https://bitbucket.org/atlassian/jira-testkit] that allows you to setup JIRA for tests (create users, issues, groups, workflows, etc.).
+
+Backdoor is [TestKit backdoor](https://bitbucket.org/atlassian/jira-testkit) that allows you to setup JIRA for tests (create users, issues, groups, workflows, etc.).
+
 
 Here's couple of rules we use to setup test environment:
 
@@ -120,14 +123,15 @@ public abstract class TestBase {
 
 As you can see it gives you most of the rules. There's also an additional funcTestHelper object that gives you all objects known from FuncTestCase like administration, navigation, etc.
 
+
 You should not use them. Instead use TestKit and PageObjects. It's mean to simplify moving legacy tests to the new infrastructure.
 
 ### How to prepare your own PageObjects
 
-There's a nice [tutorial on writing PageObjects|https://developer.atlassian.com/display/JIRADEV/Plugin+Tutorial+-+Writing+integration+tests+using+PageObjects] for your own pages. Please read it and if you have any questions please raise questions on [Answers|http://answers.atlassian.com].
+There's a nice [tutorial on writing PageObjects](https://developer.atlassian.com/display/JIRADEV/Plugin+Tutorial+-+Writing+integration+tests+using+PageObjects) for your own pages. Please read it and if you have any questions please raise questions on [Answers](http://answers.atlassian.com).
 
 ## Contributing your changes to Func Test Basics
 
-This is an Open Source library and your welcome to contribute. Please fork the repository, do your modifications and raise a pull request. Then your changes will be incorporated. If you're a customer that's all you need to do because [Atlassian End User Agreement|http://www.atlassian.com/end-user-agreement/] (section 7) covers contributions already.
+This is an Open Source library and your welcome to contribute. Please fork the repository, do your modifications and raise a pull request. Then your changes will be incorporated. If you're a customer that's all you need to do because [Atlassian End User Agreement](http://www.atlassian.com/end-user-agreement/) (section 7) covers contributions already.
 
 
