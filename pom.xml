@@ -191,6 +191,22 @@
 			<artifactId>jira-rest-java-client</artifactId>
 			<version>1.1-m01</version>
 		</dependency>
+		<dependency>
+        <groupId>com.atlassian.plugins.rest</groupId>
+        <artifactId>atlassian-rest-common</artifactId>
+        <version>${rest.version}</version>
+        <scope>provided</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>jsr311-api</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>com.sun.jersey</groupId>
+                <artifactId>jersey-core</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
 	</dependencies>
 
 	<properties>
@@ -199,5 +215,6 @@
 		<testkit.version>6.0.14</testkit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdkLevel>1.6</jdkLevel>
+		<rest.version>2.7.1</rest.version>
 	</properties>
 </project>
