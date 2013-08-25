@@ -10,7 +10,7 @@ You can use the same Func Test Basics to run tests against 5.0.2, 5.1, 5.2, and 
 
 ### How to start
 
-Edit you pom.xml and add following:
+Edit you pom.xml and add following (rest.version set to 2.7.1):
 
 ```xml
 <dependency>
@@ -18,6 +18,22 @@ Edit you pom.xml and add following:
 	<artifactId>jira-func-test-basics</artifactId>
 	<version>1.9.5</version>
 	<scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>com.atlassian.plugins.rest</groupId>
+  <artifactId>atlassian-rest-common</artifactId>
+  <version>${rest.version}</version>
+  <scope>provided</scope>
+  <exclusions>
+    <exclusion>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>jsr311-api</artifactId>
+    </exclusion>
+    <exclusion>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-core</artifactId>
+    </exclusion>
+  </exclusions>
 </dependency>
 ```
 
