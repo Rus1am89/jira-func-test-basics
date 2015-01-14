@@ -19,6 +19,7 @@ import com.atlassian.jira.pageobjects.JiraTestedProduct;
 import com.atlassian.jira.testkit.client.Backdoor;
 import com.atlassian.jira.tests.rules.DirtyWarningTerminatorRule;
 import com.atlassian.jira.tests.rules.MaximizeWindow;
+import com.atlassian.jira.tests.rules.OnboardingRule;
 import com.atlassian.jira.tests.rules.WebDriverScreenshot;
 import com.atlassian.pageobjects.PageBinder;
 import org.junit.ClassRule;
@@ -33,6 +34,9 @@ public abstract class TestBase {
 
 	@Rule
 	public DirtyWarningTerminatorRule dirtyWarning = new DirtyWarningTerminatorRule(jira());
+
+	@Rule
+	public OnboardingRule onboardingRule = new OnboardingRule(jira());
 
 	@ClassRule
 	public static FuncTestHelper funcTestHelper = new FuncTestHelper();
