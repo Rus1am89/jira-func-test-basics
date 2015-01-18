@@ -1,4 +1,4 @@
-package com.atlassian.jira.tests;
+package com.atlassian.jira.tests.rules;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
