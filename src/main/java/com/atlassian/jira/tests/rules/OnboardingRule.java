@@ -16,6 +16,8 @@ import javax.annotation.Nonnull;
  */
 public class OnboardingRule extends TestWatcher
 {
+    static final String DARK_FEATURE_DISABLE_ONBOARDING_FLAG = "jira.onboarding.feature.disabled";
+
     private JiraTestedProduct jira;
 
     public OnboardingRule(JiraTestedProduct jira) {
@@ -28,13 +30,13 @@ public class OnboardingRule extends TestWatcher
         final AnnotatedDescription annotatedDescription = new AnnotatedDescription(description);
         if (annotatedDescription.hasAnnotation(EnableOnboarding.class))
         {
-            jira.backdoor().darkFeatures().disableForSite("jira.onboarding.feature.disabled");
+            jira.backdoor().darkFeatures().disableForSite(DARK_FEATURE_DISABLE_ONBOARDING_FLAG);
 
         }
         else
         {
             // default
-            jira.backdoor().darkFeatures().enableForSite("jira.onboarding.feature.disabled");
+            jira.backdoor().darkFeatures().enableForSite(DARK_FEATURE_DISABLE_ONBOARDING_FLAG);
         }
     }
 
