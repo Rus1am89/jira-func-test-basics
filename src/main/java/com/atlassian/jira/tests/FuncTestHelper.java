@@ -51,7 +51,7 @@ public class FuncTestHelper extends ExternalResource {
 		backdoor = new Backdoor(new TestKitLocalEnvironmentData());
 		assertions = factory.getAssertions();
 
-		new JiraSetupInstanceHelper(webTester, environmentData).ensureJIRAIsReadyToGo(new FuncTestWebClientListener());
+		new JiraSetupInstanceHelper(webTester, environmentData).ensureJIRAIsReadyToGo();
 		new JicWebSudoControl(backdoor, webTester).disable();
 	}
 

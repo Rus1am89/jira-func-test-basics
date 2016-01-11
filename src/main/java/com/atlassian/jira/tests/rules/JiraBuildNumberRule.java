@@ -1,15 +1,17 @@
 package com.atlassian.jira.tests.rules;
 
 import com.atlassian.jira.pageobjects.JiraTestedProduct;
-import com.atlassian.jira.rest.client.NullProgressMonitor;
-import com.atlassian.jira.rest.client.internal.jersey.JerseyJiraRestClientFactory;
+import com.atlassian.jira.rest.client.api.domain.ServerInfo;
+import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.jira.tests.annotations.JiraBuildNumberDependent;
+import com.google.common.base.Function;
+import com.google.common.util.concurrent.ListenableFuture;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 import com.atlassian.jira.rest.client.auth.AnonymousAuthenticationHandler;
-
 import java.net.URI;
+import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -47,6 +49,23 @@ public class JiraBuildNumberRule implements TestRule {
 	}
 
 	public long getBuildNumber() {
-		return new JerseyJiraRestClientFactory().create(URI.create(baseUrl), new AnonymousAuthenticationHandler()).getMetadataClient().getServerInfo(new NullProgressMonitor()).getBuildNumber();
+		ListenableFuture<Integer> future = new AsynchronousJiraRestClientFactory().create(URI.create(baseUrl), new AnonymousAuthenticationHandler())
+			.getMetadataClient().getServerInfo().map(new Function<ServerInfo, Integer>(){
+				public Integer apply(ServerInfo s) {
+					return s.getBuildNumber();
+				}
+			});
+
+		long result = 0;
+		try {
+			result = Long.valueOf(future.get());
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			System.err.println("Interrupted during JiraBuildNumberRule.getBuildNumber()");
+		} catch (ExecutionException e) {
+			// TODO What do to here?
+		}
+
+		return result;
 	}
 }
