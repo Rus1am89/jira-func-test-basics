@@ -63,7 +63,7 @@ public class JiraBuildNumberRule implements TestRule {
 			Thread.currentThread().interrupt();
 			System.err.println("Interrupted during JiraBuildNumberRule.getBuildNumber()");
 		} catch (ExecutionException e) {
-			// TODO What do to here?
+			System.err.println("ExecutionException in JiraBuildNumberRule.getBuildNumber(): " + e.getCause());
 		}
 
 		return result;
