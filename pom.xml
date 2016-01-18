@@ -203,11 +203,11 @@
 	</dependencies>
 
 	<properties>
-		<jira.version>7.1.0-SNAPSHOT</jira.version>
+		<jira.version>7.1.0-QR20160111213826</jira.version>
 		<jira.data.version>${jira.version}</jira.data.version>
 		<testkit.version>6.0.14</testkit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdkLevel>1.6</jdkLevel>
+		<jdkLevel>1.8</jdkLevel>
 		<rest.version>2.7.1</rest.version>
 	</properties>
 </project>
