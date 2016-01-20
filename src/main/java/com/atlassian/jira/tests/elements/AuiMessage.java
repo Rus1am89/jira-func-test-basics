@@ -101,7 +101,8 @@ public class AuiMessage
     }
 
     /**
-     * Type of message - Error, Warning, Success & UNKOWN
+     * Type of message - Error, Warning, Success and UNKNOWN
+     *
      * @return message type
      */
     public Type getType () {
