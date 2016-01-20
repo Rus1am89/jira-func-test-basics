@@ -8,14 +8,14 @@
 
 	<groupId>com.atlassian.jira.tests</groupId>
 	<artifactId>jira-func-test-basics</artifactId>
-	<version>1.9.10</version>
+	<version>1.9.11-SNAPSHOT</version>
 	<name>Atlassian JIRA - Testing - Base Classes for Func Tests</name>
 
 	<scm>
 		<connection>scm:git:ssh://git@bitbucket.org/atlassian/jira-func-test-basics.git</connection>
 		<developerConnection>scm:git:ssh://git@bitbucket.org/atlassian/jira-func-test-basics.git</developerConnection>
 		<url>http://bitbucket.org/atlassian/jira-func-test-basics</url>
-	  <tag>jira-func-test-basics-1.9.10</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<profiles>
