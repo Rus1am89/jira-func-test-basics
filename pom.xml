@@ -11,13 +11,6 @@
 	<version>2.0.1-SNAPSHOT</version>
 	<name>Atlassian JIRA - Testing - Base Classes for Func Tests</name>
 
-	<scm>
-		<connection>scm:git:ssh://git@bitbucket.org/atlassian/jira-func-test-basics.git</connection>
-		<developerConnection>scm:git:ssh://git@bitbucket.org/atlassian/jira-func-test-basics.git</developerConnection>
-		<url>http://bitbucket.org/atlassian/jira-func-test-basics</url>
-	  	<tag>HEAD</tag>
-  	</scm>
-
 	<profiles>
 		<profile>
 			<id>jar-with-dependencies</id>
@@ -59,6 +52,7 @@
 							</execution>
 						</executions>
 					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
@@ -180,6 +174,12 @@
 			<groupId>rhino</groupId>
 			<artifactId>js</artifactId>
 			<version>1.7R2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>jira-func-tests</artifactId>
+			<version>${jira.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.atlassian.jira</groupId>
